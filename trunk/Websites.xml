@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<website>
+	<sitegroup name="推荐网站"> 
+		<site name="缺省" url="">
+			<value name="BookName">
+				<match options="">
+					<pattern><![CDATA[<title>(?<BookName>.*)</title>]]></pattern>
+					<group name="BookName"/>
+				</match>
+			</value>
+			<value name="ArticleInfo">
+				<matches options="Singleline|IgnoreCase">
+					<pattern><![CDATA[<a href=[(?<ArticleURL>\S*)|.(?<ArticleURL>\S*).].*?>(?<ArticleName>.*?)</a>]]></pattern>
+					<group name="ArticleName"/>
+					<group name="ArticleURL"/>
+				</matches>
+			</value>
+			<value name="ArticleText">
+				<replace options="Singleline|IgnoreCase">
+					<pattern><![CDATA[</p>|<br>]]></pattern>
+					<replacement><![CDATA[\r\n]]></replacement>
+				</replace>
+				<replace options="Singleline|IgnoreCase">
+					<pattern><![CDATA[<font color=[.#[F]+|#[F]+].*?>.*?</font>|<script.*?>.*?</script>]]></pattern>
+					<replacement></replacement>
+				</replace>
+				<replace options="Singleline|IgnoreCase">
+					<pattern><![CDATA[&npbs;]]></pattern>
+					<replacement></replacement>
+				</replace>
+				<replace options="Singleline|IgnoreCase">
+					<pattern><![CDATA[<.*?>]]></pattern>
+					<replacement></replacement>
+				</replace>
+			</value>
+		</site>
+		<site name="新浪读书" url="http://book.sina.com.cn/">
+			<value name="BookName">
+				<match options="">
+					<pattern><![CDATA[<TITLE>(?<BookName>.*)_.*_.*</TITLE>]]></pattern>
+					<group name="BookName"/>
+				</match>
+			</value>
+			<value name="ArticleInfo">
+				<matches options="">
+					<pattern><![CDATA[<li><a href=(?<ArticleURL>\S*) target=_blank class=a03>(?<ArticleName>.*)</a>]]></pattern>
+					<group name="ArticleName"/>
+					<group name="ArticleURL"/>
+				</matches>
+			</value>
+			<value name="ArticleText">
+				<match options="Singleline|IgnoreCase">
+					<pattern><![CDATA[<td class=l17 vAlign=top>.*?[<td[^>]*>.*?</td>]*.*?</td>]]></pattern>
+				</match>
+				<matches options="Singleline|IgnoreCase">
+					<pattern><![CDATA[<p>(?<ArticleText>.*?)</p>]]></pattern>
+					<group name="ArticleText"/>
+				</matches>
+				<replace options="Singleline|IgnoreCase">
+					<pattern><![CDATA[<.*?>]]></pattern>
+					<replacement></replacement>
+				</replace>
+				<replace options="Singleline|IgnoreCase">
+					<pattern><![CDATA[&nbsp|&nbsp;]]></pattern>
+					<replacement> </replacement>
+				</replace>
+			</value>
+		</site>
+	</sitegroup> 
+	<sitegroup name="其他网站"> 
+		<site name="国学网文献部" url="http://www.guoxue.com/wenxian/wxjing/jingbu.htm"/>
+		<site name="亦凡书库石溪镜像" url="http://www.yifan.net/yihe/novels/cnovel.html"/>
+		<site name="文心阁" url="http://70.84.30.54/bookroom.php"/>
+		<site name="白鹿书院" url="http://www.oklink.net/"/>
+	</sitegroup> 
+</website>
