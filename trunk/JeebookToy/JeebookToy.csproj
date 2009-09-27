@@ -49,6 +49,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JB\Author.cs" />
+    <Compile Include="JB\Book.cs" />
+    <Compile Include="JB\Chapter.cs" />
+    <Compile Include="JB\Element.cs" />
+    <Compile Include="JB\Image.cs" />
+    <Compile Include="JB\Info.cs" />
+    <Compile Include="JB\Link.cs" />
+    <Compile Include="JB\Para.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,5 +68,8 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="JB" />
   </ItemGroup>
 </Project>
