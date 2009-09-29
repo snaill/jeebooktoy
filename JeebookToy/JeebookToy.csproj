@@ -57,6 +57,7 @@
     <Compile Include="JB\Info.cs" />
     <Compile Include="JB\Link.cs" />
     <Compile Include="JB\Para.cs" />
+    <Compile Include="JB\Xml.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

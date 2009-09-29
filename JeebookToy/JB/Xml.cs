@@ -1,8 +1,8 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: liming
- * Date: 2009-9-27
- * Time: 12:30
+ * Date: 2009-9-29
+ * Time: 18:00
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
@@ -11,15 +11,10 @@ using System;
 namespace JeebookToy.JB
 {
 	/// <summary>
-	/// Description of Chapter.
+	/// Description of Xml.
 	/// </summary>
-	public class Chapter
+	public interface Xml
 	{
-		public Chapter()
-		{
-		}
-		
-		public string Title;
-		public System.Collections.Generic.List<Element>	Elements;
+		void Save( string strPath );
 	}
 }
