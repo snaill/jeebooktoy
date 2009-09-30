@@ -29,5 +29,10 @@ namespace JeebookToy
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
+		
+		void MainFormLoad(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }
