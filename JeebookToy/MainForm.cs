@@ -18,6 +18,8 @@ namespace JeebookToy
 	/// </summary>
 	public partial class MainForm : Form
 	{
+		TaskManager Manager = new TaskManager(System.Windows.Forms.Application.StartupPath + "\\temp\\");
+		
 		public MainForm()
 		{
 			//
@@ -28,11 +30,34 @@ namespace JeebookToy
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+			Manager.AddTaskEvent += AddTaskHandler;
 		}
 		
 		void MainFormLoad(object sender, EventArgs e)
 		{
-			
+		}
+		
+		void AddButtonClick(object sender, EventArgs e)
+		{
+			Manager.Add(UrlTextBox.Text);
+		}
+		
+		void AddTaskHandler( Task task )
+		{
+			if ( task.IsFinished )
+			{
+				ListViewItem lvi = FinsihListView.Items.Add( task.Name );
+			}
+			else
+			{
+				ListViewItem lvi = DownloadListView.Items.Add( task.Name );					
+			}
+		}
+		
+		void PluginTestMenuItemClick(object sender, EventArgs e)
+		{
+			PluginForm form = new PluginForm();
+			form.ShowDialog();
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace JeebookToy.JB
 		{
 		}
 		
-		public string Title;
-		public System.Collections.Generic.List<Element>	Elements;
+		public string Title = "New Chapter";
+		public System.Collections.Generic.List<Element>	Elements = new System.Collections.Generic.List<Element>();
 	}
 }
