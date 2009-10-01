@@ -15,7 +15,7 @@ namespace JeebookToy.JB
 	/// </summary>
 	public class Book
 	{
-		public Book()
+		public Book(string strPath)
 		{
 		}
 		
