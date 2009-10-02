@@ -32,6 +32,7 @@ namespace JeebookToy
 			Info.FileName = System.Windows.Forms.Application.StartupPath + "\\tidy.exe";
 			Info.CreateNoWindow = true;
 			Info.Arguments = "-asxhtml -utf16 -m \"" + strPath + "\"";
+			
 			System.Diagnostics.Process	proc = System.Diagnostics.Process.Start(Info);
 			proc.WaitForExit(5000);
 			
