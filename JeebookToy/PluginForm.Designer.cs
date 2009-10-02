@@ -76,6 +76,7 @@ namespace JeebookToy
 			this.SourceTextBox.Name = "SourceTextBox";
 			this.SourceTextBox.Size = new System.Drawing.Size(225, 266);
 			this.SourceTextBox.TabIndex = 2;
+			this.SourceTextBox.DoubleClick += new System.EventHandler(this.SourceTextBoxDoubleClick);
 			// 
 			// TargetTextBox
 			// 
@@ -86,6 +87,7 @@ namespace JeebookToy
 			this.TargetTextBox.ReadOnly = true;
 			this.TargetTextBox.Size = new System.Drawing.Size(230, 266);
 			this.TargetTextBox.TabIndex = 3;
+			this.TargetTextBox.DoubleClick += new System.EventHandler(this.TargetTextBoxDoubleClick);
 			// 
 			// splitContainer1
 			// 
@@ -133,6 +135,7 @@ namespace JeebookToy
 			this.Controls.Add(this.splitContainer1);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Name = "PluginForm";
+			this.ShowInTaskbar = false;
 			this.Text = "PluginForm";
 			this.Load += new System.EventHandler(this.PluginFormLoad);
 			this.splitContainer1.Panel1.ResumeLayout(false);

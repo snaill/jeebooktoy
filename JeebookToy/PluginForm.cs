@@ -12,6 +12,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Xsl;
 using System.Windows.Forms;
+using EfTidyNet;
 
 namespace JeebookToy
 {
@@ -40,35 +41,70 @@ namespace JeebookToy
 			{
 				PluginsComboBox.Items.Add( dirs[i].Substring( strPath.Length ) );
 			}
-			PluginsComboBox.SelectedIndex = 0;
+			if ( PluginsComboBox.Items.Count > 0 )
+				PluginsComboBox.SelectedIndex = 0;
 		}
 		
 		void PluginsComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
-			if ( PluginsComboBox.SelectedText == "" )
+			if ( PluginsComboBox.Text == "" )
 				return;
 			
-			string strPath = System.Windows.Forms.Application.StartupPath + "\\plugins\\" + PluginsComboBox.SelectedText + "\\";
-			string[] files = System.IO.Directory.GetFiles(strPath, "*.xsl");
+			string strPath = System.Windows.Forms.Application.StartupPath + "\\plugins\\" + PluginsComboBox.Text + "\\";
+			string[] files = System.IO.Directory.GetFiles(strPath, "*.xslt");
 			for ( int i = 0; i < files.Length; i ++ )
 			{
 				XslComboBox.Items.Add( files[i].Substring( strPath.Length ) );
 			}
-			XslComboBox.SelectedIndex = 0;
+			if ( XslComboBox.Items.Count > 0 )
+				XslComboBox.SelectedIndex = 0;
 		}
 		
 		void CreateButtonClick(object sender, EventArgs e)
 		{
-			XslCompiledTransform xslt = new XslCompiledTransform();
-            xslt.Load(System.Windows.Forms.Application.StartupPath + "\\plugins\\" + PluginsComboBox.SelectedText + "\\" + XslComboBox.SelectedText );
+			//
+			string 	xhtml = "";
+			TidyNet tn = new TidyNet();
+			tn.Option.OutputType(EfTidyNet.EfTidyOpt.EOutputType.XhtmlOut);
+			tn.TidyMemToMem( SourceTextBox.Text, ref xhtml );
 
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(HtmlTidy.Tidy(SourceTextBox.Text));
-            
-            System.IO.StringWriter sw = new System.IO.StringWriter();
-            xslt.Transform( xml, XmlWriter.Create(sw));
-            
-            TargetTextBox.Text = sw.ToString();
+			//
+			XmlDocument xml = new XmlDocument();
+            xml.LoadXml(xhtml);
+
+            //
+            try {
+	            StringBuilder sb = new StringBuilder();
+	            SaxonWrapper.Xsl2Processor processor = new SaxonWrapper.Xsl2Processor();
+	            processor.Load( System.Windows.Forms.Application.StartupPath + "\\plugins\\" + PluginsComboBox.Text + "\\" + XslComboBox.Text );
+	            processor.Transform( xml, XmlWriter.Create( sb ) );
+//	            Saxon.Api.Processor processor = new Saxon.Api.Processor();
+//	            Saxon.Api.XsltCompiler compiler = processor.NewXsltCompiler();
+//	            System.Xml.XmlReader xr = XmlReader.Create(System.Windows.Forms.Application.StartupPath + "\\plugins\\" + PluginsComboBox.Text + "\\" + XslComboBox.Text );
+//	            Saxon.Api.XsltTransformer transformer = compiler.Compile(xr).Load();
+//	            
+//	            Saxon.Api.XdmNode inputNode = processor.NewDocumentBuilder().Build(xml);
+//	            Saxon.Api.TextWriterDestination dest = new Saxon.Api.TextWriterDestination(XmlWriter.Create(sb));
+//	                        
+//	            transformer.InitialContextNode = inputNode;
+//	            transformer.Run(dest);
+	            
+	            TargetTextBox.Text = sb.ToString();
+            } 
+            catch ( Exception ex )
+            {
+            	MessageBox.Show( ex.ToString() + ":" + ex.Message );
+            }
+		}
+		
+		void SourceTextBoxDoubleClick(object sender, EventArgs e)
+		{
+			SourceTextBox.SelectAll();
+		}
+		
+		void TargetTextBoxDoubleClick(object sender, EventArgs e)
+		{
+			TargetTextBox.SelectAll();
 		}
 	}
 }
