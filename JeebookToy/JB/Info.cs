@@ -20,6 +20,7 @@ namespace JeebookToy.JB
 		}
 		
 		public string Title { get; set; }
+		public string BiblioSource { get; set; }		
 		public Author Author{ get; set; }
 
 		public System.Xml.XmlElement ToXmlElement(System.Xml.XmlDocument doc)
@@ -28,7 +29,7 @@ namespace JeebookToy.JB
 				return null;
 			
 			System.Xml.XmlElement elem = doc.CreateElement("info");
-			if ( Title != null && Title != "" )
+			if ( string.IsNullOrEmpty( Title ) )
 			{
 				System.Xml.XmlElement elem2 = doc.CreateElement("title");
 				elem2.Value = Title;
@@ -40,7 +41,12 @@ namespace JeebookToy.JB
 				if ( elem2 != null )
 					elem.AppendChild(elem2);
 			}
-			
+			if ( string.IsNullOrEmpty( BiblioSource) )
+			{
+				System.Xml.XmlElement elem2 = doc.CreateElement("bibliosource");
+				elem2.Value = BiblioSource;
+				elem.AppendChild( elem2 );
+			}			
 			return elem;
 		}
 	}
