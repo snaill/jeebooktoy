@@ -9,6 +9,7 @@
 using System;
 using System.Threading;
 using JeebookToy.JB;
+using System.Collections.Specialized;
 
 namespace JeebookToy
 {
@@ -17,14 +18,42 @@ namespace JeebookToy
 	/// <summary>
 	/// Description of TaskManager.
 	/// </summary>
-	public class TaskManager
+	public class TaskManager : INotifyCollectionChanged
 	{
+		/// <summary>
+		/// 任务列表
+		/// </summary>
 		System.Collections.Generic.List<Task>	Tasks = new System.Collections.Generic.List<Task>();
+		
+		/// <summary>
+		/// 任务存放根目录
+		/// </summary>
+		string Path;
+		
+		/// <summary>
+		/// 任务执行线程
+		/// </summary>
 		Thread Loop = null;
+		
+		/// <summary>
+		/// 任务线程执行标志
+		/// </summary>
 		bool bLoop = false;
 		
-		public event AddTaskHandler AddTaskEvent;
+		/// <summary>
+		/// 列表状态变化事件
+		/// </summary>
+		public event System.Collections.Specialized.NotifyCollectionChangedEventHandler CollectionChanged;
+		
+		/// <summary>
+		/// 任务状态变化事件
+		/// </summary>
+		public event TaskStateChangedHandler TaskStateChanged;
 			
+		/// <summary>
+		/// 构造函数，装载已创建（包括已完成）的任务
+		/// </summary>
+		/// <param name="strPath">任务存放根路径</param>
 		public TaskManager(string strPath)
 		{
 			string[] dirs = System.IO.Directory.GetDirectories(strPath);
@@ -33,8 +62,9 @@ namespace JeebookToy
 				string strTask = dirs[i] + "index.task";
 				if ( System.IO.File.Exists( strTask ) )
 				{
-					Task task = new Task(strTask);
-					Add( task );
+					Task task = new Task();
+					if ( task.Load( strTask ) )
+						Add( task );
 				}
 				else
 				{
@@ -46,32 +76,61 @@ namespace JeebookToy
 					Add( task );
 				}
 			}
+		
+			Path = strPath;
 			
+			//
 			Loop = new Thread( new ThreadStart(LoopThread));
 			Loop.Priority = ThreadPriority.BelowNormal;
 			Loop.Start();
 		}
 			
+		/// <summary>
+		/// 析构函数
+		/// </summary>
 		~TaskManager()
 		{
 				
 		}
 		
-		public void Add( string url )
-		{
-			Task task = new Task();
-			task.Uri  = url;
-			Add( task );
-		}
-		
 		public void Add( Task task )
 		{
+			task.TaskStateChanged += TaskStateChangedHandler;
 			Tasks.Add( task );
-			if ( AddTaskEvent != null )
-				AddTaskEvent( task );
+			if ( CollectionChanged != null )
+				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, task ) );
+		}
+				
+		void TaskStateChangedHandler( Task task, TaskStateChangedEventArgs args )
+		{
+			if ( TaskStateChanged != null )
+				TaskStateChanged( task, args );
 		}
 		
+		/// <summary>
+		/// 获取某个任务的路径
+		/// </summary>
+		/// <param name="url">任务的URL</param>
+		/// <returns>为该任务所分配的全路径名</returns>
+		public string CreateTaskPath( string url )
+		{
+            string str = "";
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] s = md5.ComputeHash(System.Text.Encoding.UTF8.GetBytes(url));
+            for (int i = 0; i < s.Length; i++)
+            {
+                str = str + s[i].ToString("x");
+            }
+			
+            str = Path + "\\" + str;
+            if ( !System.IO.Directory.Exists( str ) )
+            	System.IO.Directory.CreateDirectory( str );
+            return str;
+		}
 		
+		/// <summary>
+		/// 任务线程
+		/// </summary>
 		void LoopThread()
 		{
 			bLoop = true;
@@ -79,7 +138,7 @@ namespace JeebookToy
 			{
 				for ( int i = 0; i < Tasks.Count; i ++ )
 				{
-					if ( Tasks[i].IsFinished )
+					if ( Tasks[i].State == TaskState.Finished )
 						continue;
 					
 					Tasks[i].Run();

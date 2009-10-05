@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Collections.Specialized;
 
 namespace JeebookToy
 {
@@ -18,7 +19,8 @@ namespace JeebookToy
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		TaskManager Manager = new TaskManager(System.Windows.Forms.Application.StartupPath + "\\temp\\");
+		TaskManager 	TManager = new TaskManager(System.Windows.Forms.Application.StartupPath + "\\temp\\");
+		PluginManager	PManager = new PluginManager(System.Windows.Forms.Application.StartupPath + "\\plugins\\");
 		
 		public MainForm()
 		{
@@ -30,7 +32,9 @@ namespace JeebookToy
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
-			Manager.AddTaskEvent += AddTaskHandler;
+			
+			TManager.TaskStateChanged += TaskStateChangedHandler;
+			TManager.CollectionChanged += CollectionChangedHandler;
 		}
 		
 		void MainFormLoad(object sender, EventArgs e)
@@ -39,19 +43,37 @@ namespace JeebookToy
 		
 		void AddButtonClick(object sender, EventArgs e)
 		{
-			Manager.Add(UrlTextBox.Text);
+			string strPlugin = PManager.Find( UrlTextBox.Text );
+			if ( strPlugin == "" )
+			{
+				MessageBox.Show( "Unknown website" );
+				return;
+			}
+			
+			Task task = new BookTask();
+			task.Create( UrlTextBox.Text, strPlugin, TManager.CreateTaskPath( UrlTextBox.Text ),System.Windows.Forms.Application.StartupPath + "\\JBs\\"  );
+			TManager.Add(task);
 		}
 		
-		void AddTaskHandler( Task task )
+		void CollectionChangedHandler( object sender, NotifyCollectionChangedEventArgs args )
 		{
-			if ( task.IsFinished )
+			if ( args.Action == NotifyCollectionChangedAction.Add )
 			{
-				ListViewItem lvi = FinsihListView.Items.Add( task.Name );
+				Task task = (Task)args.NewItems[0];
+				if ( task.State == TaskState.Finished )
+				{
+					ListViewItem lvi = FinsihListView.Items.Add( task.Name );
+				}
+				else
+				{
+					ListViewItem lvi = DownloadListView.Items.Add( task.Name );					
+				}
 			}
-			else
-			{
-				ListViewItem lvi = DownloadListView.Items.Add( task.Name );					
-			}
+		}
+		
+		void TaskStateChangedHandler( Task task, TaskStateChangedEventArgs args )
+		{
+
 		}
 		
 		void PluginTestMenuItemClick(object sender, EventArgs e)
