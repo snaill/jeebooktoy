@@ -81,7 +81,7 @@ namespace JeebookToy
 			
 			//
 			Loop = new Thread( new ThreadStart(LoopThread));
-			Loop.Priority = ThreadPriority.BelowNormal;
+			Loop.Priority = ThreadPriority.AboveNormal;
 			Loop.Start();
 		}
 			

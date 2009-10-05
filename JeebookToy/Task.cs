@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using Altova.AltovaXML;
 
 namespace JeebookToy
 {
@@ -135,34 +136,26 @@ namespace JeebookToy
             return System.Text.Encoding.UTF8.GetString(output.ToArray());
 		}
 		
-		public static void Transform(string strXml, System.Xml.XmlWriter writer, string strXslFile )
-		{
-			//
-			System.Xml.XmlDocument xml = new System.Xml.XmlDocument();
-            xml.LoadXml(strXml);
-
-            //
-            try {
-	            
-	            SaxonWrapper.Xsl2Processor processor = new SaxonWrapper.Xsl2Processor();
-	            processor.Load( strXslFile );
-	            processor.Transform( xml, writer );
-            } 
-            catch ( Exception )
-            {
-            }
-		}
-		
 		public static string Transform(string strXml, string strXslFile )
 		{
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			Transform( strXml, System.Xml.XmlWriter.Create( sb ), strXslFile );
-			return sb.ToString();
+			System.IO.TextReader input = new System.IO.StreamReader(strXslFile);
+			string strXsl = input.ReadToEnd();
+			input.Close();
+			
+			return Xsl2Engine.Transform( strXml, strXsl );
 		}
 		
 		public static void Transform(string strXml, string strOutput, string strXslFile )
 		{
-			Transform( strXml, System.Xml.XmlWriter.Create( strOutput ), strXslFile );
+			System.IO.TextReader input = new System.IO.StreamReader(strXslFile);
+			string strXsl = input.ReadToEnd();
+			input.Close();
+			
+			string result = Xsl2Engine.Transform( strXml, strXsl );
+			
+			System.IO.TextWriter tw = new System.IO.StreamWriter( strOutput, false, System.Text.Encoding.Unicode );
+			tw.Write( result );
+			tw.Close();
 		}	
 		
 		public static string GetPath( string url, string strPath )
