@@ -39,6 +39,9 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
+    <Reference Include="Altova.AltovaXML">
+      <HintPath>libs\Altova.AltovaXML.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>libs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -103,7 +106,7 @@
     <Compile Include="Task.cs" />
     <Compile Include="TaskManager.cs" />
     <Compile Include="TaskStateChangedEventArgs.cs" />
-    <Compile Include="Xsl2Processor.cs" />
+    <Compile Include="Xsl2Engine.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
