@@ -39,7 +39,9 @@ namespace JeebookToy
 		/// 任务线程执行标志
 		/// </summary>
 		bool bLoop = false;
-		
+
+		System.Threading.AutoResetEvent LoopEvent = new AutoResetEvent(false);
+
 		/// <summary>
 		/// 列表状态变化事件
 		/// </summary>
@@ -62,18 +64,18 @@ namespace JeebookToy
 				string strTask = dirs[i] + "index.task";
 				if ( System.IO.File.Exists( strTask ) )
 				{
-					Task task = new Task();
-					if ( task.Load( strTask ) )
-						Add( task );
+//					Task task = new Task();
+//					if ( task.Load( strTask ) )
+//						Add( task );
 				}
 				else
 				{
-					Book	book = new Book(dirs[i]);
-				
-					Task task = new Task();
-				//	task.Name = book.Info.Title;
-					task.Uri = dirs[i];
-					Add( task );
+//					Book	book = new Book(dirs[i]);
+//				
+//					Task task = new Task();
+//				//	task.Name = book.Info.Title;
+//					task.Uri = dirs[i];
+//					Add( task );
 				}
 			}
 		
@@ -81,30 +83,35 @@ namespace JeebookToy
 			
 			//
 			Loop = new Thread( new ThreadStart(LoopThread));
-			Loop.Priority = ThreadPriority.AboveNormal;
+			Loop.Priority = ThreadPriority.Normal;
 			Loop.Start();
 		}
 			
 		/// <summary>
-		/// 析构函数
+		/// 添加任务到任务列表
 		/// </summary>
-		~TaskManager()
-		{
-				
-		}
-		
+		/// <param name="task">任务对象</param>
 		public void Add( Task task )
 		{
-			task.TaskStateChanged += TaskStateChangedHandler;
+			((ITaskNotify)task).TaskStateChanged += TaskStateChangedHandler;
 			Tasks.Add( task );
 			if ( CollectionChanged != null )
 				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, task ) );
 		}
-				
-		void TaskStateChangedHandler( Task task, TaskStateChangedEventArgs args )
+			
+		/// <summary>
+		/// 清空任务列表，并停止任务线程
+		/// </summary>
+		public void Clear()
+		{
+			bLoop = false;
+			LoopEvent.WaitOne(5000);
+		}
+		
+		void TaskStateChangedHandler( TaskStateChangedEventArgs args )
 		{
 			if ( TaskStateChanged != null )
-				TaskStateChanged( task, args );
+				TaskStateChanged( args );
 		}
 		
 		/// <summary>
@@ -146,6 +153,8 @@ namespace JeebookToy
 				
 				System.Threading.Thread.Sleep(1000);
 			}
+			
+			LoopEvent.Set();
 		}
 	}
 }

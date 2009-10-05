@@ -14,17 +14,33 @@ namespace JeebookToy
 	/// <summary>
 	/// Description of BookTask.
 	/// </summary>
-	public class BookTask : Task
+	public class BookTask : Task, ITaskNotify
 	{
+		public new event TaskStateChangedHandler TaskStateChanged;
+		
 		public override void  Run()
 		{
-			TaskStateChangedEventArgs args = new TaskStateChangedEventArgs();
+			TaskStateChangedEventArgs args = new TaskStateChangedEventArgs(this);
+			
+			State = TaskState.Downloading;
+			if ( TaskStateChanged != null )
+				TaskStateChanged( args );
 			
 			// 下载目录页
 			string index = Download( Uri );
 			
+			//
+			State = TaskState.ToXHtml;
+			if ( TaskStateChanged != null )
+				TaskStateChanged( args );
+			
 			// 格式化处理HtmlTidy
 			index = Html2XHtml( index );
+	
+			//
+			State = TaskState.ToJeebook;
+			if ( TaskStateChanged != null )
+				TaskStateChanged( args );
 			
 			// 解析章节列表Xsl
 			Transform( index, XmlPath + "\\index.xml", XsltPath + "\\index.xslt" );
@@ -43,6 +59,11 @@ namespace JeebookToy
 //				// 格式化处理HtmlTidy
 //				// 解析章节内容Xsl
 //			}
+			
+			//
+			State = TaskState.Finished;
+			if ( TaskStateChanged != null )
+				TaskStateChanged( args );
 		}
 	}
 }
