@@ -11,7 +11,7 @@ using Altova.AltovaXML;
 
 namespace JeebookToy
 {
-	public delegate void TaskStateChangedHandler( Task task, TaskStateChangedEventArgs args );
+	public delegate void TaskStateChangedHandler( TaskStateChangedEventArgs args );
 		
 	public enum TaskState 
 	{
@@ -22,6 +22,14 @@ namespace JeebookToy
 		Packaging,
 		Finished,
 		Failed
+	}
+	
+	public interface ITaskNotify
+	{
+		/// <summary>
+		/// 任务状态变化事件
+		/// </summary>
+		event TaskStateChangedHandler TaskStateChanged;		
 	}
 	
 	/// <summary>
@@ -58,13 +66,8 @@ namespace JeebookToy
 		/// 目标文件（打包后文件）路径
 		/// </summary>
 		public string JBPath = "";
-		
-		/// <summary>
-		/// 任务状态变化事件
-		/// </summary>
-		public event TaskStateChangedHandler TaskStateChanged;
-		
-		public Task()
+
+		protected Task()
 		{
 		}
 		

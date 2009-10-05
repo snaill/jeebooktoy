@@ -73,15 +73,20 @@ namespace JeebookToy
 			}
 		}
 		
-		void TaskStateChangedHandler( Task task, TaskStateChangedEventArgs args )
+		void TaskStateChangedHandler( TaskStateChangedEventArgs args )
 		{
-
+			
 		}
 		
 		void PluginTestMenuItemClick(object sender, EventArgs e)
 		{
 			PluginForm form = new PluginForm();
 			form.ShowDialog();
+		}
+		
+		void MainFormFormClosed(object sender, FormClosedEventArgs e)
+		{
+			TManager.Clear();
 		}
 	}
 }
