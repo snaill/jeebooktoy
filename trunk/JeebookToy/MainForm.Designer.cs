@@ -37,24 +37,17 @@ namespace JeebookToy
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.UrlTextBox = new System.Windows.Forms.TextBox();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.DownloadTabPage = new System.Windows.Forms.TabPage();
-			this.DownloadListView = new System.Windows.Forms.ListView();
+			this.TaskListView = new System.Windows.Forms.ListView();
 			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
 			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-			this.FinishTabPage = new System.Windows.Forms.TabPage();
-			this.FinsihListView = new System.Windows.Forms.ListView();
-			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+			this.TaskStateImageList = new System.Windows.Forms.ImageList(this.components);
 			this.StatusStrip = new System.Windows.Forms.StatusStrip();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.AddButton = new JeebookToy.Controls.SplitButton();
 			this.SplitButtonMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.PluginTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.tabControl1.SuspendLayout();
-			this.DownloadTabPage.SuspendLayout();
-			this.FinishTabPage.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SplitButtonMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -68,40 +61,20 @@ namespace JeebookToy
 			this.UrlTextBox.Size = new System.Drawing.Size(328, 26);
 			this.UrlTextBox.TabIndex = 0;
 			// 
-			// tabControl1
+			// TaskListView
 			// 
-			this.tabControl1.Controls.Add(this.DownloadTabPage);
-			this.tabControl1.Controls.Add(this.FinishTabPage);
-			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tabControl1.Location = new System.Drawing.Point(0, 34);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(419, 238);
-			this.tabControl1.TabIndex = 2;
-			// 
-			// DownloadTabPage
-			// 
-			this.DownloadTabPage.Controls.Add(this.DownloadListView);
-			this.DownloadTabPage.Location = new System.Drawing.Point(4, 22);
-			this.DownloadTabPage.Name = "DownloadTabPage";
-			this.DownloadTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.DownloadTabPage.Size = new System.Drawing.Size(411, 212);
-			this.DownloadTabPage.TabIndex = 0;
-			this.DownloadTabPage.Text = "Download";
-			this.DownloadTabPage.UseVisualStyleBackColor = true;
-			// 
-			// DownloadListView
-			// 
-			this.DownloadListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+			this.TaskListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
 									this.columnHeader1,
 									this.columnHeader2});
-			this.DownloadListView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DownloadListView.Location = new System.Drawing.Point(3, 3);
-			this.DownloadListView.Name = "DownloadListView";
-			this.DownloadListView.Size = new System.Drawing.Size(405, 206);
-			this.DownloadListView.TabIndex = 0;
-			this.DownloadListView.UseCompatibleStateImageBehavior = false;
-			this.DownloadListView.View = System.Windows.Forms.View.Details;
+			this.TaskListView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TaskListView.FullRowSelect = true;
+			this.TaskListView.Location = new System.Drawing.Point(0, 34);
+			this.TaskListView.Name = "TaskListView";
+			this.TaskListView.Size = new System.Drawing.Size(419, 238);
+			this.TaskListView.SmallImageList = this.TaskStateImageList;
+			this.TaskListView.TabIndex = 0;
+			this.TaskListView.UseCompatibleStateImageBehavior = false;
+			this.TaskListView.View = System.Windows.Forms.View.Details;
 			// 
 			// columnHeader1
 			// 
@@ -113,39 +86,17 @@ namespace JeebookToy
 			this.columnHeader2.Text = "Status";
 			this.columnHeader2.Width = 250;
 			// 
-			// FinishTabPage
+			// TaskStateImageList
 			// 
-			this.FinishTabPage.Controls.Add(this.FinsihListView);
-			this.FinishTabPage.Location = new System.Drawing.Point(4, 22);
-			this.FinishTabPage.Name = "FinishTabPage";
-			this.FinishTabPage.Padding = new System.Windows.Forms.Padding(3);
-			this.FinishTabPage.Size = new System.Drawing.Size(411, 212);
-			this.FinishTabPage.TabIndex = 1;
-			this.FinishTabPage.Text = "Finish";
-			this.FinishTabPage.UseVisualStyleBackColor = true;
-			// 
-			// FinsihListView
-			// 
-			this.FinsihListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-									this.columnHeader3,
-									this.columnHeader4});
-			this.FinsihListView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.FinsihListView.Location = new System.Drawing.Point(3, 3);
-			this.FinsihListView.Name = "FinsihListView";
-			this.FinsihListView.Size = new System.Drawing.Size(405, 206);
-			this.FinsihListView.TabIndex = 0;
-			this.FinsihListView.UseCompatibleStateImageBehavior = false;
-			this.FinsihListView.View = System.Windows.Forms.View.Details;
-			// 
-			// columnHeader3
-			// 
-			this.columnHeader3.Text = "Name";
-			this.columnHeader3.Width = 80;
-			// 
-			// columnHeader4
-			// 
-			this.columnHeader4.Text = "Folder";
-			this.columnHeader4.Width = 250;
+			this.TaskStateImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("TaskStateImageList.ImageStream")));
+			this.TaskStateImageList.TransparentColor = System.Drawing.Color.Transparent;
+			this.TaskStateImageList.Images.SetKeyName(0, "Finished");
+			this.TaskStateImageList.Images.SetKeyName(1, "Failed");
+			this.TaskStateImageList.Images.SetKeyName(2, "Packaging");
+			this.TaskStateImageList.Images.SetKeyName(3, "Downloading");
+			this.TaskStateImageList.Images.SetKeyName(4, "ToXHtml");
+			this.TaskStateImageList.Images.SetKeyName(5, "ToJeebook");
+			this.TaskStateImageList.Images.SetKeyName(6, "Ready");
 			// 
 			// StatusStrip
 			// 
@@ -203,7 +154,7 @@ namespace JeebookToy
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(419, 294);
-			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.TaskListView);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.StatusStrip);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -211,29 +162,21 @@ namespace JeebookToy
 			this.Text = "JeebookToy";
 			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
-			this.tabControl1.ResumeLayout(false);
-			this.DownloadTabPage.ResumeLayout(false);
-			this.FinishTabPage.ResumeLayout(false);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
 			this.SplitButtonMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ImageList TaskStateImageList;
+		private System.Windows.Forms.ListView TaskListView;
 		private System.Windows.Forms.ToolStripMenuItem PluginTestMenuItem;
 		private System.Windows.Forms.ContextMenuStrip SplitButtonMenuStrip;
 		private JeebookToy.Controls.SplitButton AddButton;
-		private System.Windows.Forms.ColumnHeader columnHeader4;
-		private System.Windows.Forms.ColumnHeader columnHeader3;
 		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.StatusStrip StatusStrip;
-		private System.Windows.Forms.ListView FinsihListView;
-		private System.Windows.Forms.TabPage FinishTabPage;
-		private System.Windows.Forms.ListView DownloadListView;
-		private System.Windows.Forms.TabPage DownloadTabPage;
-		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TextBox UrlTextBox;
 	}
 }

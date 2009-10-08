@@ -18,7 +18,7 @@ namespace JeebookToy
 		/// <summary>
 		/// 当前任务
 		/// </summary>
-		Task	Current = null;
+		public Task	Current = null;
 		
 		/// <summary>
 		/// 当前正在处理的url
