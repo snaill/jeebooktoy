@@ -62,20 +62,45 @@ namespace JeebookToy
 			if ( args.Action == NotifyCollectionChangedAction.Add )
 			{
 				Task task = (Task)args.NewItems[0];
-				if ( task.State == TaskState.Finished )
-				{
-					ListViewItem lvi = FinsihListView.Items.Add( task.Name );
-				}
-				else
-				{
-					ListViewItem lvi = DownloadListView.Items.Add( task.Name );					
-				}
+				ListViewItem lvi = TaskListView.Items.Add( task.Name );
+				lvi.SubItems.Add("Ready");
+				lvi.Tag = task;
 			}
 		}
 		
+		
 		void TaskStateChangedHandler( TaskStateChangedEventArgs args )
 		{
-			
+			TaskListView.Invoke( new TaskStateChangedHandler(TaskStateChanged), new object[1]{args} );
+		}
+		
+		void TaskStateChanged( TaskStateChangedEventArgs args )
+		{
+			//
+			ListViewItem item = null;
+			for ( int i = 0; i < TaskListView.Items.Count; i ++ )
+			{
+				if ( TaskListView.Items[i].Tag == args.Current )
+				{
+					item = TaskListView.Items[i];
+					break;
+				}
+			}
+			System.Diagnostics.Debug.Assert( item != null );
+
+			//
+			switch ( args.Current.State )
+			{
+				case TaskState.Downloading: item.ImageKey = "Downloading"; break;
+				case TaskState.Finished: item.ImageKey = "Finished"; break;
+				case TaskState.Failed: item.ImageKey = "Failed"; break;
+				case TaskState.Packaging: item.ImageKey = "Packaging";break;
+				case TaskState.Ready: item.ImageKey = "Ready";break;
+				case TaskState.ToJeebook: item.ImageKey = "ToJeebook";break;
+				case TaskState.ToXHtml: item.ImageKey = "ToXHtml";break;
+			}
+			item.Text = args.Current.Name;
+			item.SubItems[1].Text = args.ToString();
 		}
 		
 		void PluginTestMenuItemClick(object sender, EventArgs e)

@@ -16,12 +16,12 @@ namespace JeebookToy
 	/// </summary>
 	public class BookTask : Task, ITaskNotify
 	{
-		public new event TaskStateChangedHandler TaskStateChanged;
+		public event TaskStateChangedHandler TaskStateChanged;
 		
 		public override void  Run()
 		{
 			TaskStateChangedEventArgs args = new TaskStateChangedEventArgs(this);
-			
+			args.Url = this.Uri;
 			State = TaskState.Downloading;
 			if ( TaskStateChanged != null )
 				TaskStateChanged( args );
@@ -46,11 +46,11 @@ namespace JeebookToy
 			Transform( index, XmlPath + "\\index.xml", XsltPath + "\\index.xslt" );
 			
 			// 整理图书信息，并获取目录列表
-			Book book = new Book(XmlPath);
-			if ( book.Info.Title == "" )
-				book.Info.Title = "Unkown Title";
-			book.Info.BiblioSource = Uri;
-			book.Save(XmlPath + "\\index.xml");
+//			Book book = new Book(XmlPath);
+//			if ( book.Info.Title == "" )
+//				book.Info.Title = "Unkown Title";
+//			book.Info.BiblioSource = Uri;
+//			book.Save(XmlPath + "\\index.xml");
 			
 			// 循环
 //			for ( int i = 0; i < book.Chapters.Count; i ++ )

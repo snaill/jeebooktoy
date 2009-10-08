@@ -21,10 +21,10 @@ namespace JeebookToy
 	public class TaskManager : INotifyCollectionChanged
 	{
 		/// <summary>
-		/// 任务列表
+		/// 未完成任务列表
 		/// </summary>
 		System.Collections.Generic.List<Task>	Tasks = new System.Collections.Generic.List<Task>();
-		
+
 		/// <summary>
 		/// 任务存放根目录
 		/// </summary>
@@ -40,6 +40,9 @@ namespace JeebookToy
 		/// </summary>
 		bool bLoop = false;
 
+		/// <summary>
+		/// 任务线程执行事件
+		/// </summary>
 		System.Threading.AutoResetEvent LoopEvent = new AutoResetEvent(false);
 
 		/// <summary>
@@ -95,6 +98,7 @@ namespace JeebookToy
 		{
 			((ITaskNotify)task).TaskStateChanged += TaskStateChangedHandler;
 			Tasks.Add( task );
+			
 			if ( CollectionChanged != null )
 				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, task ) );
 		}

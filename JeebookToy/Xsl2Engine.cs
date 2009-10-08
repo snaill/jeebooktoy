@@ -24,6 +24,10 @@ namespace JeebookToy
 	{
 		public static Xsl2EngineType CurrentEngine = Xsl2EngineType.Unknown;
 
+		/// <summary>
+		/// 检查Xslt 2.0引擎的有效性
+		/// </summary>
+		/// <returns>返回可用的引擎类型，所有都不可用则返回Unknown</returns>
 		public static Xsl2EngineType CheckEngine()
 		{
 			try {
@@ -43,6 +47,12 @@ namespace JeebookToy
 			return Xsl2EngineType.Unknown;
 		}
 		
+		/// <summary>
+		/// 使用AltovaXML处理Xslt 2.0
+		/// </summary>
+		/// <param name="strXml">字符串形式的XML数据</param>
+		/// <param name="strXsl">字符串形式的XSLT数据</param>
+		/// <returns>处理后的XML字符串</returns>
 		public static string TransformByAltovaXML( string strXml, string strXsl )
 		{
 			Altova.AltovaXML.ApplicationClass ac = new Altova.AltovaXML.ApplicationClass();
@@ -51,6 +61,12 @@ namespace JeebookToy
             return ac.XSLT2.ExecuteAndGetResultAsString();			
 		}
 		
+		/// <summary>
+		/// 使用Saxon处理Xslt 2.0
+		/// </summary>
+		/// <param name="strXml">字符串形式的XML数据</param>
+		/// <param name="strXsl">字符串形式的XSLT数据</param>
+		/// <returns>处理后的XML字符串</returns>
 		public static string TransformBySaxon( string strXml, string strXsl )
 		{
 			//
