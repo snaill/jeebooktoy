@@ -48,6 +48,7 @@ namespace JeebookToy
 			this.AddButton = new JeebookToy.Controls.SplitButton();
 			this.SplitButtonMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.PluginTestMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.EditorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.SplitButtonMenuStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -68,9 +69,9 @@ namespace JeebookToy
 									this.columnHeader2});
 			this.TaskListView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TaskListView.FullRowSelect = true;
-			this.TaskListView.Location = new System.Drawing.Point(0, 34);
+			this.TaskListView.Location = new System.Drawing.Point(0, 31);
 			this.TaskListView.Name = "TaskListView";
-			this.TaskListView.Size = new System.Drawing.Size(419, 238);
+			this.TaskListView.Size = new System.Drawing.Size(419, 218);
 			this.TaskListView.SmallImageList = this.TaskStateImageList;
 			this.TaskListView.TabIndex = 0;
 			this.TaskListView.UseCompatibleStateImageBehavior = false;
@@ -100,7 +101,7 @@ namespace JeebookToy
 			// 
 			// StatusStrip
 			// 
-			this.StatusStrip.Location = new System.Drawing.Point(0, 272);
+			this.StatusStrip.Location = new System.Drawing.Point(0, 249);
 			this.StatusStrip.Name = "StatusStrip";
 			this.StatusStrip.Size = new System.Drawing.Size(419, 22);
 			this.StatusStrip.TabIndex = 3;
@@ -113,7 +114,7 @@ namespace JeebookToy
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(419, 34);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(419, 31);
 			this.flowLayoutPanel1.TabIndex = 5;
 			// 
 			// AddButton
@@ -128,7 +129,7 @@ namespace JeebookToy
 			this.AddButton.Location = new System.Drawing.Point(337, 3);
 			this.AddButton.Name = "AddButton";
 			this.AddButton.NormalImage = "Normal";
-			this.AddButton.Size = new System.Drawing.Size(75, 23);
+			this.AddButton.Size = new System.Drawing.Size(75, 21);
 			this.AddButton.TabIndex = 1;
 			this.AddButton.Text = "Add";
 			this.AddButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -138,22 +139,30 @@ namespace JeebookToy
 			// SplitButtonMenuStrip
 			// 
 			this.SplitButtonMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-									this.PluginTestMenuItem});
+									this.PluginTestMenuItem,
+									this.EditorMenuItem});
 			this.SplitButtonMenuStrip.Name = "contextMenuStrip1";
-			this.SplitButtonMenuStrip.Size = new System.Drawing.Size(149, 26);
+			this.SplitButtonMenuStrip.Size = new System.Drawing.Size(155, 70);
 			// 
 			// PluginTestMenuItem
 			// 
 			this.PluginTestMenuItem.Name = "PluginTestMenuItem";
-			this.PluginTestMenuItem.Size = new System.Drawing.Size(148, 22);
+			this.PluginTestMenuItem.Size = new System.Drawing.Size(154, 22);
 			this.PluginTestMenuItem.Text = "Plugins Tester";
 			this.PluginTestMenuItem.Click += new System.EventHandler(this.PluginTestMenuItemClick);
 			// 
+			// EditorMenuItem
+			// 
+			this.EditorMenuItem.Name = "EditorMenuItem";
+			this.EditorMenuItem.Size = new System.Drawing.Size(154, 22);
+			this.EditorMenuItem.Text = "Editor";
+			this.EditorMenuItem.Click += new System.EventHandler(this.EditorMenuItemClick);
+			// 
 			// MainForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(419, 294);
+			this.ClientSize = new System.Drawing.Size(419, 271);
 			this.Controls.Add(this.TaskListView);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.StatusStrip);
@@ -168,6 +177,7 @@ namespace JeebookToy
 			this.ResumeLayout(false);
 			this.PerformLayout();
 		}
+		private System.Windows.Forms.ToolStripMenuItem EditorMenuItem;
 		private System.Windows.Forms.ImageList TaskStateImageList;
 		private System.Windows.Forms.ListView TaskListView;
 		private System.Windows.Forms.ToolStripMenuItem PluginTestMenuItem;
