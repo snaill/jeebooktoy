@@ -20,6 +20,7 @@ namespace JeebookToy.JB
 		}
 		
 		public string Title = "New Chapter";
+		public string Uri = "";
 		public System.Collections.Generic.List<Element>	Elements = new System.Collections.Generic.List<Element>();
 	}
 }
