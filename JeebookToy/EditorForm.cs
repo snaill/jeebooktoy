@@ -9,6 +9,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using JeebookToy.JB;
 
 namespace JeebookToy
 {
@@ -27,6 +28,8 @@ namespace JeebookToy
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+			Book b = Book.Create(@"E:\AppEngine\jeebooktoy\example\JB");
+			string str = b.Info.Title;
 		}
 	}
 }

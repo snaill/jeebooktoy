@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace JeebookToy.JB
 {
@@ -15,12 +17,28 @@ namespace JeebookToy.JB
 	/// </summary>
 	public class Book
 	{
-		public Book(string strPath)
+		public Book() {}
+		
+		public static Book Create(string strPath)
 		{
+			Book book = new Book();
+			XDocument doc = XDocument.Load( strPath + "\\index.xml" );
+			book.Info = Info.Create( doc.Root.Element("info") );
+			
+			var chaps = from cNode in doc.Root.Elements(XName.Get("include", "http://www.w3.org/2001/XInclude"))
+				select new Chapter 
+				{
+					Title = cNode.Value,
+					Uri = cNode.Attribute("href").Value
+				};
+			foreach( Chapter c in chaps )
+				book.Chapters.Add( c );
+			
+			return book;
 		}
 		
 		public Info Info{ get; set;	}
-		public System.Collections.Generic.List<Chapter>	Chapters;
+		public System.Collections.Generic.List<Chapter>	Chapters = new System.Collections.Generic.List<Chapter>();
 		
 		public void Save( string strPath )
 		{

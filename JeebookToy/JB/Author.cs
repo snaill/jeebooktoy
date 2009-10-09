@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Xml.Linq;
 
 namespace JeebookToy.JB
 {
@@ -17,6 +18,14 @@ namespace JeebookToy.JB
 	{
 		public Author()
 		{
+		}
+		
+		public static Author Create(XElement xe)
+		{
+			Author author = new Author();
+			author.OtherName = xe.Element("personname").Element("othername").Value;
+			
+			return author;
 		}
 		
 		public string OtherName { get; set; }
