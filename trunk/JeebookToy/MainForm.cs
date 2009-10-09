@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Specialized;
+using JeebookToy.Controls;
 
 namespace JeebookToy
 {
@@ -112,6 +113,12 @@ namespace JeebookToy
 		void MainFormFormClosed(object sender, FormClosedEventArgs e)
 		{
 			TManager.Clear();
+		}
+		
+		void EditorMenuItemClick(object sender, EventArgs e)
+		{
+			EditorForm form = new EditorForm();
+			form.ShowDialog();
 		}
 	}
 }
