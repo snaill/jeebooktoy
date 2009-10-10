@@ -106,7 +106,7 @@ namespace JeebookToy
 		
 		void PluginTestMenuItemClick(object sender, EventArgs e)
 		{
-			PluginForm form = new PluginForm();
+			TesterForm form = new TesterForm();
 			form.ShowDialog();
 		}
 		

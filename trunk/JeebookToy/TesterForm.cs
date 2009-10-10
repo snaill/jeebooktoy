@@ -18,9 +18,9 @@ namespace JeebookToy
 	/// <summary>
 	/// Description of PluginForm.
 	/// </summary>
-	public partial class PluginForm : Form
+	public partial class TesterForm : Form
 	{
-		public PluginForm()
+		public TesterForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
