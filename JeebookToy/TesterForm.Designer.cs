@@ -8,7 +8,7 @@
  */
 namespace JeebookToy
 {
-	partial class PluginForm
+	partial class TesterForm
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.

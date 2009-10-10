@@ -148,14 +148,14 @@ namespace JeebookToy
 			// 
 			this.PluginTestMenuItem.Name = "PluginTestMenuItem";
 			this.PluginTestMenuItem.Size = new System.Drawing.Size(154, 22);
-			this.PluginTestMenuItem.Text = "Plugins Tester";
+			this.PluginTestMenuItem.Text = "Xslt Tester";
 			this.PluginTestMenuItem.Click += new System.EventHandler(this.PluginTestMenuItemClick);
 			// 
 			// EditorMenuItem
 			// 
 			this.EditorMenuItem.Name = "EditorMenuItem";
 			this.EditorMenuItem.Size = new System.Drawing.Size(154, 22);
-			this.EditorMenuItem.Text = "Editor";
+			this.EditorMenuItem.Text = "Jeebook Editor";
 			this.EditorMenuItem.Click += new System.EventHandler(this.EditorMenuItemClick);
 			// 
 			// MainForm
