@@ -78,6 +78,7 @@
     <Compile Include="Controls\SplitButton.Designer.cs">
       <DependentUpon>SplitButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ToolStripSpringTextBox.cs" />
     <Compile Include="EditorForm.cs" />
     <Compile Include="EditorForm.Designer.cs">
       <DependentUpon>EditorForm.cs</DependentUpon>
