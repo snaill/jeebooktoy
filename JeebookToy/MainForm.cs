@@ -107,7 +107,7 @@ namespace JeebookToy
 		void PluginTestMenuItemClick(object sender, EventArgs e)
 		{
 			TesterForm form = new TesterForm();
-			form.ShowDialog();
+			form.Show();
 		}
 		
 		void MainFormFormClosed(object sender, FormClosedEventArgs e)
@@ -118,7 +118,7 @@ namespace JeebookToy
 		void EditorMenuItemClick(object sender, EventArgs e)
 		{
 			EditorForm form = new EditorForm();
-			form.ShowDialog();
+			form.Show();
 		}
 	}
 }

@@ -20,6 +20,10 @@ namespace JeebookToy.JB
 		{
 		}
 		
+		public string GetLocalName()	{ return "author";}
+		public void LoadFromString(string str )	{}
+		public override string ToString() { return ""; }
+		
 		public static Author Create(XElement xe)
 		{
 			Author author = new Author();

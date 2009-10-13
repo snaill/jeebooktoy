@@ -15,6 +15,8 @@ namespace JeebookToy.JB
 	/// </summary>
 	public interface Element
 	{
-//		System.Xml.XmlElement ToXmlElement(System.Xml.XmlDocument doc);
+		string GetLocalName();
+		void LoadFromString(string str );		
+		string ToString();
 	}
 }

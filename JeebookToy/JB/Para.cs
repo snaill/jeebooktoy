@@ -20,7 +20,9 @@ namespace JeebookToy.JB
 		public Para()
 		{
 		}
-	
+			
+		public string GetLocalName()	{ return "para";}
+
 		public static Para Create(XElement xe )
 		{
 			Para para = new Para();
@@ -28,6 +30,15 @@ namespace JeebookToy.JB
 			return para;
 		}
 		
+		public void LoadFromString(string str )
+		{
+			Text = str;
+		}
+		
+		public override string ToString() 
+		{
+			return Text;
+		}
 		public const string Xml_LocalName = "para";
 		public string Text;
 	}

@@ -38,10 +38,12 @@ namespace JeebookToy.JB
 				book.Chapters.Add( c );
 			}
 			
+			book.Path = strPath;
 			return book;
 		}
 		
 		public Info Info{ get; set;	}
+		public string Path;
 		public System.Collections.Generic.List<Chapter>	Chapters = new System.Collections.Generic.List<Chapter>();
 		
 		public void Save( string strPath )
@@ -60,9 +62,9 @@ namespace JeebookToy.JB
 					doc.AppendChild( elem );
 			}
 			
-			for ( int i = 0; i < Chapters.Count; i ++ )
+			foreach ( Chapter chap in Chapters )
 			{
-				//Chapters[i]
+				//chap.Save();
 			}
 		}
 	}

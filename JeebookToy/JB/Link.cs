@@ -13,7 +13,7 @@ namespace JeebookToy.JB
 	/// <summary>
 	/// Description of Link.
 	/// </summary>
-	public class Link : Element
+	public class Link
 	{
 		public Link()
 		{
