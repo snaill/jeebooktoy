@@ -20,6 +20,10 @@ namespace JeebookToy.JB
 		{
 		}
 		
+		public string GetLocalName()	{ return "info";}
+		public void LoadFromString(string str )	{}
+		public override string ToString() { return ""; }
+
 		public static Info Create(XElement xe )
 		{
 			Info info = new Info();

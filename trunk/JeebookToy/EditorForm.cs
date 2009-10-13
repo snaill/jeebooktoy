@@ -48,18 +48,38 @@ namespace JeebookToy
 	
 		void ContentTreeViewAfterSelect(object sender, TreeViewEventArgs e)
 		{
+			if ( ContextTextBox.Tag != null )
+			{
+				((Element)ContextTextBox.Tag).LoadFromString( ContextTextBox.Text );
+				ContextTextBox.Text = "";
+			}
+						
 			if ( ContentTreeView.SelectedNode != ContentTreeView.TopNode )
 			{
 				Chapter chap = (Chapter)ContentTreeView.SelectedNode.Tag;
 				if ( chap.Elements == null )
+				{
 					chap = Chapter.Create( chap.Uri );
+					ContentTreeView.SelectedNode.Tag = chap;
+				}
 				
+				ElementsListBox.Items.Clear();
+				ElementsListBox.Tag = chap;
 				foreach ( Element ex in chap.Elements )
 				{
-					Para para = (Para)ex;
-					ContextTextBox.Text += para.Text + "\r\n";
+					ElementsListBox.Items.Add( ex.GetLocalName() );
 				}
 			}			
+		}
+		
+		void ElementsListBoxSelectedIndexChanged(object sender, EventArgs e)
+		{
+			if ( ContextTextBox.Tag != null )
+				((Element)ContextTextBox.Tag).LoadFromString( ContextTextBox.Text );
+			
+			Chapter chap = (Chapter)ElementsListBox.Tag;
+			ContextTextBox.Text = chap.Elements[ElementsListBox.SelectedIndex].ToString();
+			ContextTextBox.Tag = chap.Elements[ElementsListBox.SelectedIndex];
 		}
 	}
 }
