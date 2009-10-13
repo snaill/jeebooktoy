@@ -31,8 +31,12 @@ namespace JeebookToy.JB
 					Title = cNode.Value,
 					Uri = cNode.Attribute("href").Value
 				};
+			
 			foreach( Chapter c in chaps )
+			{
+				c.Uri = strPath + "\\" + c.Uri;
 				book.Chapters.Add( c );
+			}
 			
 			return book;
 		}
