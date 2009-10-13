@@ -7,16 +7,28 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace JeebookToy.JB
 {
 	/// <summary>
 	/// Description of Para.
 	/// </summary>
-	public class Para
+	public class Para : Element
 	{
 		public Para()
 		{
 		}
+	
+		public static Para Create(XElement xe )
+		{
+			Para para = new Para();
+			para.Text = xe.Value;
+			return para;
+		}
+		
+		public const string Xml_LocalName = "para";
+		public string Text;
 	}
 }

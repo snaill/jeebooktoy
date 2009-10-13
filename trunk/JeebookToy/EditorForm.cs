@@ -18,6 +18,8 @@ namespace JeebookToy
 	/// </summary>
 	public partial class EditorForm : Form
 	{
+		Book CurrentBook = null;
+		
 		public EditorForm()
 		{
 			//
@@ -28,8 +30,36 @@ namespace JeebookToy
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
-			Book b = Book.Create(@"E:\AppEngine\jeebooktoy\example\JB");
-			string str = b.Info.Title;
+
+		}
+		
+		void OpenButtonClick(object sender, EventArgs e)
+		{
+			CurrentBook = Book.Create(UriTextBox.Text);
+			
+			TreeNode tn = ContentTreeView.Nodes.Add(CurrentBook.Info.Title);
+			for ( int i = 0; i < CurrentBook.Chapters.Count; i ++ )
+			{
+				TreeNode tnSub = tn.Nodes.Add( CurrentBook.Chapters[i].Title);
+				tnSub.Tag = CurrentBook.Chapters[i];
+			}
+			tn.Expand();
+		}
+	
+		void ContentTreeViewAfterSelect(object sender, TreeViewEventArgs e)
+		{
+			if ( ContentTreeView.SelectedNode != ContentTreeView.TopNode )
+			{
+				Chapter chap = (Chapter)ContentTreeView.SelectedNode.Tag;
+				if ( chap.Elements == null )
+					chap = Chapter.Create( chap.Uri );
+				
+				foreach ( Element ex in chap.Elements )
+				{
+					Para para = (Para)ex;
+					ContextTextBox.Text += para.Text + "\r\n";
+				}
+			}			
 		}
 	}
 }

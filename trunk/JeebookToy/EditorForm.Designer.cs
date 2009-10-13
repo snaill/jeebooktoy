@@ -40,8 +40,8 @@ namespace JeebookToy
 			this.UriTextBox = new System.Windows.Forms.TextBox();
 			this.OpenButton = new System.Windows.Forms.Button();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.ContentTreeView = new System.Windows.Forms.TreeView();
 			this.ContextTextBox = new System.Windows.Forms.TextBox();
+			this.ContentTreeView = new System.Windows.Forms.TreeView();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -73,6 +73,7 @@ namespace JeebookToy
 			this.OpenButton.TabIndex = 1;
 			this.OpenButton.Text = "Open";
 			this.OpenButton.UseVisualStyleBackColor = true;
+			this.OpenButton.Click += new System.EventHandler(this.OpenButtonClick);
 			// 
 			// splitContainer1
 			// 
@@ -91,14 +92,6 @@ namespace JeebookToy
 			this.splitContainer1.SplitterDistance = 97;
 			this.splitContainer1.TabIndex = 1;
 			// 
-			// ContentTreeView
-			// 
-			this.ContentTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ContentTreeView.Location = new System.Drawing.Point(0, 0);
-			this.ContentTreeView.Name = "ContentTreeView";
-			this.ContentTreeView.Size = new System.Drawing.Size(97, 234);
-			this.ContentTreeView.TabIndex = 0;
-			// 
 			// ContextTextBox
 			// 
 			this.ContextTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -107,6 +100,15 @@ namespace JeebookToy
 			this.ContextTextBox.Name = "ContextTextBox";
 			this.ContextTextBox.Size = new System.Drawing.Size(191, 234);
 			this.ContextTextBox.TabIndex = 0;
+			// 
+			// ContentTreeView
+			// 
+			this.ContentTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ContentTreeView.Location = new System.Drawing.Point(0, 0);
+			this.ContentTreeView.Name = "ContentTreeView";
+			this.ContentTreeView.Size = new System.Drawing.Size(97, 234);
+			this.ContentTreeView.TabIndex = 0;
+			this.ContentTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ContentTreeViewAfterSelect);
 			// 
 			// EditorForm
 			// 
