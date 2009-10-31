@@ -46,16 +46,7 @@ namespace JeebookToy
 		
 		void AddButtonClick(object sender, EventArgs e)
 		{
-			string strPlugin = PManager.Find( UrlTextBox.Text );
-			if ( strPlugin == "" )
-			{
-				MessageBox.Show( "Unknown website" );
-				return;
-			}
-			
-			Task task = new BookTask();
-			task.Create( UrlTextBox.Text, strPlugin, TManager.CreateTaskPath( UrlTextBox.Text ),System.Windows.Forms.Application.StartupPath + "\\JBs\\"  );
-			TManager.Add(task);
+
 		}
 		
 		void CollectionChangedHandler( object sender, NotifyCollectionChangedEventArgs args )
@@ -120,5 +111,24 @@ namespace JeebookToy
 			EditorForm form = new EditorForm();
 			form.Show();
 		}
+
+        private void AddFromBookUrlMenuItem_Click(object sender, EventArgs e)
+        {
+            string strPlugin = PManager.Find(UrlTextBox.Text);
+            if (strPlugin == "")
+            {
+                MessageBox.Show("Unknown website");
+                return;
+            }
+
+            Task task = new BookTask();
+            task.Create(UrlTextBox.Text, strPlugin, TManager.CreateTaskPath(UrlTextBox.Text), System.Windows.Forms.Application.StartupPath + "\\JBs\\");
+            TManager.Add(task);
+        }
+
+        private void AddFromComicFolderMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] files = System.IO.Directory.GetFiles(UrlTextBox.Text);
+        }
 	}
 }
